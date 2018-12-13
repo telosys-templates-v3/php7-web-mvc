@@ -1,0 +1,42 @@
+## --- Init variables for the current $entity
+##
+#set( $this = "${DOLLAR}this" )
+#set( $list = "${DOLLAR}list" )
+#set( $href = "${DOLLAR}href" )
+##
+#set( $entityClass     = $fn.capitalize(${entity.name}) )
+#set( $entityDaoClass  = "${entityClass}Dao" )
+#set( $entityHrefClass = "${entityClass}Href" )
+#set( $entityControllerClass = "${entityClass}Controller" )
+#set( $entityVarName   = "${DOLLAR}$fn.uncapitalize(${entity.name})" )
+## #set( $entityPhpFile   = $fn.toLowerCase(${entity.name}) )
+##
+##
+#set( $entityKeyAttributes = "" )
+#foreach( $attribute in $entity.keyAttributes)
+#if( $foreach.count < 2 )
+#set( $entityKeyAttributes = "${DOLLAR}${attribute.name}" )
+#else
+#set( $entityKeyAttributes = $entityKeyAttributes + ", " + "${DOLLAR}${attribute.name}" )
+#end
+#end
+##
+##
+#set( $entityAllAttributes = "" )
+#foreach( $attribute in $entity.keyAttributes)
+#if( $foreach.count < 2 )
+#set( $entityAllAttributes = "${DOLLAR}${attribute.name}" )
+#else
+#set( $entityAllAttributes = $entityAllAttributes + ", " + "${DOLLAR}${attribute.name}" )
+#end
+#end
+##
+##
+#set( $entityKeyAttributesGetter = "" )
+#foreach( $attribute in $entity.keyAttributes)
+#if( $foreach.count < 2 )
+#set( $entityKeyAttributesGetter = "${entityVarName}->${attribute.getterWithGetPrefix}()" )
+#else
+#set( $entityKeyAttributesGetter = $entityKeyAttributesGetter + ", " + "${entityVarName}->${attribute.getterWithGetPrefix}()" )
+#end
+#end

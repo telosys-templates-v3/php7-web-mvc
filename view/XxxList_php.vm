@@ -1,0 +1,28 @@
+#parse("vm_include/init_var_entity.vm")
+<?php require ('view/layout/list-header.php'); ?>
+
+    <!-- LIST OF ENTITIES  -->
+    <table class="table table-striped table-bordered text-center">
+    
+      <thead>
+        <tr>
+#foreach( $attribute in $entity.attributes )
+          <td><b>$attribute.name</b></td>
+#end
+        </tr>
+      </thead>
+
+      <tbody>
+      <?php foreach (${list} as ${entityVarName} ) { ?>
+        <tr onclick="window.location.href = '<?= ${href}->formForUpdate(${entityVarName}) ?>';" style="cursor: pointer">
+#foreach( $attribute in $entity.attributes )
+          <td><?= ${entityVarName}->${attribute.getterWithGetPrefix}() ?></td>
+#end
+          <td><a href="<?= ${href}->delete(${entityVarName}) ?>" title="Delete"><span class="glyphicon glyphicon-trash"></span></a></td>
+        </tr>
+      <?php } ?>
+      </tbody>
+      
+    </table>
+
+<?php require ('view/layout/list-footer.php'); ?>

@@ -1,0 +1,21 @@
+## <?php $ENTITYNAME="car" ; ?> <!-- Used to build the PHP page name ( eg "car.php" ) -->
+#parse("vm_include/init_var_entity.vm")
+<?php require ('view/layout/form-header.php'); ?>
+
+	<!-- FORM FIELDS -->
+
+#foreach( $attribute in $entity.attributes )
+#set ( $star = "" )
+#if ( $attribute.isKeyElement() )
+#set ( $star = "*" )
+#end
+	<div class="form-group">
+        <label for="$attribute.name" class="col-sm-2">${attribute.name} ${star}</label>
+        <div class="col-sm-8">
+            <input id="$attribute.name" class="form-control" name="$attribute.name" 
+            value="<?= ${entityVarName}->${attribute.getterWithGetPrefix}() ?>" />
+        </div>
+    </div>
+
+#end                        
+<?php require ('view/layout/form-footer.php'); ?>

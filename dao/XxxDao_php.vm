@@ -1,0 +1,123 @@
+#parse("vm_include/init_var_entity.vm")
+<?php
+require_once 'commons/Logger.php';
+require_once 'commons/AbstractDao.php';
+require_once 'entities/${entityClass}.php';
+
+/**
+ * D.A.O. for entity '${entityClass}'
+ * 
+ * @author Telosys Code Generator
+ *
+ */
+class ${entityDaoClass} extends AbstractDao
+{
+    /**
+     * Constructor
+     */
+    public function __construct() {
+        Logger::LOG("${entityDaoClass}: __construct()");
+        parent::__construct('${entityClass}ArrayInMemory');
+    }
+    
+    //----------------------------------------------------------------------------------------
+    
+    private function log(${DOLLAR}msg) {
+        Logger::LOG("${entityDaoClass}: " . ${DOLLAR}msg);
+    }
+    
+    /**
+#foreach( $attribute in $entity.keyAttributes )
+     * @param ${DOLLAR}${attribute.name}
+#end
+     * @return string
+     */
+    private function buildIdString(${entityKeyAttributes}) {
+		${DOLLAR}r = "" ;
+#foreach( $attribute in $entity.keyAttributes)
+#if( $foreach.count < 2 )
+		${DOLLAR}r .= ${DOLLAR}${attribute.name} ; // first
+#else
+		${DOLLAR}r .= "|" . ${DOLLAR}${attribute.name} ; // others
+#end
+        return ${DOLLAR}r ;
+#end
+    }
+    
+    //----------------------------------------------------------------------------------------
+    
+    /**
+     * Abstract implementation
+     * {@inheritDoc}
+     * @see AbstractDao::buildIdStringFromEntity()
+     */
+    protected function buildIdStringFromEntity(${entityVarName}) {
+        return ${this}->buildIdString(${entityKeyAttributesGetter});
+    }
+    
+    //----------------------------------------------------------------------------------------
+    
+    /**
+     * Returns true if the given entity exists 
+     * @param ${entityClass} ${entityVarName}
+     * @return boolean
+     */
+    public function exists(${entityClass} ${entityVarName}) {
+        ${this}->log("exists()");
+        return ${this}->existsInSession(${entityVarName});
+    }
+    
+    /**
+     * Returns an array containing all the entities 
+     * @return array
+     */
+    public function findAll() {
+        ${this}->log("findAll()");
+        return ${this}->findAllInSession();
+    }
+
+    /**
+     * Get one entity by Id
+#foreach( $attribute in $entity.keyAttributes )
+     * @param ${DOLLAR}${attribute.name}
+#end
+     * @return string
+     */
+    public function findById(${entityKeyAttributes}) {
+        ${this}->log("findById()");
+        return ${this}->findByIdInSession( ${this}->buildIdString(${entityKeyAttributes}) );
+    }
+
+    /**
+     * Creates the given entity if it doesn't exist
+     * @param ${entityClass} ${entityVarName}
+     * @return boolean true if created, false if already exist
+     */
+    public function create(${entityClass} ${entityVarName}) {
+        ${this}->log("create()");
+        return ${this}->createInSession(${entityVarName});
+    }
+    
+    /**
+     * Updates the given entity 
+     * @param ${entityClass} ${entityVarName}
+     * @return boolean true if found and updated, false if not found
+     */
+    public function update(${entityClass} ${entityVarName}) {
+        ${this}->log("update()");
+        return ${this}->updateInSession(${entityVarName});
+    }
+
+    /**
+     * Deletes the entity associated with the given id 
+#foreach( $attribute in $entity.keyAttributes )
+     * @param ${DOLLAR}${attribute.name}
+#end
+     * @return boolean true if found and deleted, false if not found
+     */
+    public function delete(${entityKeyAttributes}) {
+        ${this}->log("delete()");
+        return ${this}->deleteInSession( ${this}->buildIdString(${entityKeyAttributes}) ) ; 
+    }
+    
+}

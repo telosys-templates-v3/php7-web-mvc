@@ -1,0 +1,15 @@
+#parse("vm_include/init_var_entity.vm")
+<?php
+//
+// HTTP request entry point for entity '$entity.name'
+//
+
+require_once 'controller/${entityControllerClass}.php';
+require_once 'commons/RequestProcessor.php';
+
+
+${DOLLAR}requestProcessor = new RequestProcessor(new $entityControllerClass()); 
+
+${DOLLAR}requestProcessor->processRequest();
+
+?>
