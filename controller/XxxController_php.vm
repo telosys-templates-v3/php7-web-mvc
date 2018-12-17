@@ -81,7 +81,7 @@ class ${entityControllerClass} extends AbstractController
     /**
      * Builds a new entity instance using the given request data
      * @param ${requestData}
-     * @return Car
+     * @return ${entityClass}
      */
     private function buildEntity(${requestData}) {
         ${DOLLAR}o = new ${entityClass}();
