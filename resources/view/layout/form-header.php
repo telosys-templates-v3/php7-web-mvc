@@ -7,7 +7,7 @@ require ('view/layout/header.php');
     <div class="container">
         <div class="container">
             <!--  ---------- FORM ---------- -->
-            <form class="form-horizontal" method="post" id="car_form">
+            <form class="form-horizontal" method="post" >
                 <div class="panel-group">
                     <div class="panel panel-info">
                     
