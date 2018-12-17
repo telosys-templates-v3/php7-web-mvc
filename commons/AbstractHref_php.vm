@@ -37,8 +37,8 @@ abstract class AbstractHref {
         return $this->HREF(Action::LIST) ;
     }
     
-    public function formForUpdate($car) {
-        return $this->HREF(Action::FORM_UPDATE) . $this->hrefKeyParam($car) ;
+    public function formForUpdate($entity) {
+        return $this->HREF(Action::FORM_UPDATE) . $this->hrefKeyParam($entity) ;
     }
     
     public function formForCreate() {
@@ -47,8 +47,8 @@ abstract class AbstractHref {
     
     //-----------------------------------------------------------
     
-    public function delete($car) {
-        return $this->HREF(Action::DELETE) . $this->hrefKeyParam($car) ;
+    public function delete($entity) {
+        return $this->HREF(Action::DELETE) . $this->hrefKeyParam($entity) ;
     }
     
     public function createCurrent() {
